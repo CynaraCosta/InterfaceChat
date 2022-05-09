@@ -53,7 +53,7 @@ class GUI:
         self.window.mainloop()
 
     def send(self, event=None):
-        text = is_valid_to_send(self.text_field.get())
+        text = is_valid_to_send(self.text_field.get(), nickname= nickname)
         
         # self.client.send_message(text) -> func do client pra mandar msg pra o outro client pelo server
         self.text_area.insert(END, f'{text}\n')
