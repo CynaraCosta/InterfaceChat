@@ -2,7 +2,7 @@ from http import client
 from time import time
 from tkinter import *
 from tkinter import filedialog
-from check_message import MessageHelper
+from MessageHelper import MessageHelper
 from client import Client
 
 nickname = input("Escolha um nome de usuário: ")
@@ -83,7 +83,7 @@ class GUI:
         # else:
         #    return
 
-        #should_print = self.MessageHelper.is_valid_to_print(message)
+        #should_print = MessageHelper.is_valid_to_print(message)
         # if should_print:
         #    self.text_area.insert(END, f'Outro usuário: {message}')
         #    self.text_field.delete(0, END)
