@@ -19,11 +19,9 @@ class GUI:
         self.canva = Canvas(self.window, width=width, height=height)
         self.canva.grid(columnspan=4)
 
-        # Check message !
-
         self.createAssets()
 
-        self.client = Client()
+        self.client = Client(self)
         self.client.connect()
 
         self.video_counter = 0
@@ -72,21 +70,15 @@ class GUI:
                 message, nickname)
 
             self.print_on_screen(messageToSend)
-            # self.client.send_message(text) -> func do client pra mandar msg pra o outro client pelo server
+            self.client.send(message)
         else:
             self.print_on_screen(MessageHelper.INVALID_MESSAGE)
 
-    def received_show_text_area(self):
-        pass
-        # if client.received_message:
-        #    message = message
-        # else:
-        #    return
-
-        #should_print = MessageHelper.is_valid_to_print(message)
-        # if should_print:
-        #    self.text_area.insert(END, f'Outro usuário: {message}')
-        #    self.text_field.delete(0, END)
+    def receive_and_show(self, message):
+        should_print = MessageHelper.is_valid_to_print(message)
+        if should_print:
+            self.text_area.insert(END, f'Fulano: {message}')
+            self.text_field.delete(0, END)
 
     def clear_all(self):
         self.text_area.delete('1.0', END)

@@ -11,10 +11,10 @@ class Server:
 
     def start(self):
         while True:
-            msg, addr = self.udp_socket.recvfrom(1024)
+            self.msg, self.addr = self.udp_socket.recvfrom(1024)
 
-            self.connected_users.append(addr)
-            print(f"Connection made with ---> {addr}")
+            self.connected_users.append(self.addr)
+            print(f"Connection made with ---> {self.addr}")
 
             if (len(self.connected_users) == 2):
                 firstUser, secondUser = self.connected_users[0], self.connected_users[1]
@@ -23,10 +23,8 @@ class Server:
                     bytes(f"{firstUser}", "utf-8"), secondUser)
                 self.udp_socket.sendto(
                     bytes(f"{secondUser}", "utf-8"), firstUser)
-
-                connected_users = []
+                self.connected_users = []
                 print("UDP Server ready for two more users")
-
 
 if __name__ == "__main__":
     server = Server()
