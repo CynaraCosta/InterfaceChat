@@ -1,12 +1,19 @@
 from datetime import datetime
 
-def is_valid_to_send(text, nickname):
-    if text.replace(" ", '') == '':
-            return "Favor digite uma mensagem válida antes de enviar!"
 
-    time_now = datetime.now()
-    return f'< {time_now.strftime("%H:%M")} {nickname}: > {text}'
+class MessageHelper:
+    INVALID_MESSAGE = "Favor digite uma mensagem válida antes de enviar!"
 
-def is_valid_to_print(message_received):
-    if message_received == "Favor digite uma mensagem válida antes de enviar!":
-        return False
+    def create_message(message, nickname):
+        time_now = datetime.now()
+
+        return f'< {time_now.strftime("%H:%M")} {nickname}: > {message}'
+
+    def is_valid_to_send(message):
+        notOnlySpaces = message.replace(' ', '') != ''
+
+        return notOnlySpaces
+
+    def is_valid_to_print(message_received):
+        if message_received == "Favor digite uma mensagem válida antes de enviar!":
+            return False
