@@ -3,6 +3,7 @@ from time import time
 from tkinter import *
 from tkinter import filedialog
 from check_message import MessageHelper
+from client import Client
 
 nickname = input("Escolha um nome de usuário: ")
 
@@ -22,8 +23,8 @@ class GUI:
 
         self.createAssets()
 
-        # self.client = ClientUDP(28886, self)
-        # self.client.listenning()
+        self.client = Client()
+        self.client.connect()
 
         self.video_counter = 0
         self.audio_counter = 0
