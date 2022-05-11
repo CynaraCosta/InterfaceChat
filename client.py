@@ -6,44 +6,30 @@ class Client():
     def __init__(self, gui, nickname):
         self.gui = gui
         self.nickname = nickname
-        self.infoFulanoNickname = "Fulano"
 
         self.udp_socket = socket.socket(
             family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
     def receive(self):
-        count = 0
+        firstMessage = True
         while True:
             received_message, received_adds = self.udp_socket.recvfrom(1024)
             received_message = received_message.decode("utf-8")
 
-            self.gui.show_received(received_message)
+            if firstMessage:
+                self.get_sender_info(received_message)
+                firstMessage = False
 
-            data_about_sender = received_message.strip()
-
-            if count == 0:
-                infos = data_about_sender.split(" - ")
-                self.infoAddr = infos[0]
-                turningToTuple = self.infoAddr.split(', ')
-                
-                tuple1 = turningToTuple[0]
-                tuple1 = tuple1.replace("(", "")
-                tuple1 = tuple1.replace("'", "")
-
-                tuple2 = turningToTuple[1].replace(")", "")
-                tuple2 = int(tuple2)
-                
-                self.infoAddr = (tuple1, tuple2)
-                self.infoFulanoNickname = infos[1]
-
-                count += 1
+            self.gui.show_received(received_message, self.senderName)
 
     def send(self, *message):
         if len(message) > 0:
             if isinstance(message[0], str):
-                self.udp_socket.sendto(bytes(message[0], 'utf-8'), self.infoAddr)
+                self.udp_socket.sendto(
+                    bytes(message[0], 'utf-8'), self.senderAddress)
             else:
-                self.udp_socket.sendto((message[0], 'utf-8'), self.infoAddr)
+                self.udp_socket.sendto(
+                    (message[0], 'utf-8'), self.senderAddress)
 
     def connect(self):
         sender = Thread(target=self.send)
@@ -55,5 +41,7 @@ class Client():
         sender.start()
         receiver.start()
 
-    def giveFulanoName(self):
-        return self.infoFulanoNickname
+    def get_sender_info(self, message):
+        data = message.split(" - ")
+        self.senderAddress = eval(data[0])
+        self.senderName = data[1]

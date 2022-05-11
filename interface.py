@@ -22,7 +22,6 @@ class GUI:
         self.createAssets()
 
         self.client = Client(self, nickname)
-        self.fulanoName = self.client.giveFulanoName()
         self.client.connect()
 
         self.video_counter = 0
@@ -75,8 +74,8 @@ class GUI:
         else:
             self.print_on_screen(MessageHelper.INVALID_MESSAGE)
 
-    def show_received(self, message):
-        self.print_on_screen(MessageHelper.create_message(message, self.fulanoName))
+    def show_received(self, message, nickname):
+        self.print_on_screen(MessageHelper.create_message(message, nickname))
 
     def clear_all(self):
         self.text_area.delete('1.0', END)
