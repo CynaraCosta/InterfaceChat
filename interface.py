@@ -28,26 +28,30 @@ class GUI:
         self.audio_counter = 0
 
     def createAssets(self):
-        self.text_area = Text(self.canva, border=1, bg="#abd3eb")
+        self.text_area = Text(self.canva, border=1, bg="#fadce6")
 
         self.text_field = Entry(self.canva, width=80, border=1, bg='white')
 
+        self.add_file = Button(
+            self.canva, text='Enviar Arquivo', padx=30, command=self.put_file)
         self.send_button = Button(
-            self.canva, text='Send', padx=30, command=self.send)
+            self.canva, text='Enviar mensagem', padx=30, command=self.send)
         self.video_button = Button(
-            self.canva, text='Enviar Video', padx=30, command=self.play_video)
+            self.canva, text='Play Video', padx=30, command=self.play_video)
         self.audio_button = Button(
-            self.canva, text='Enviar Audio', padx=30, command=self.play_audio)
+            self.canva, text='Play Audio', padx=30, command=self.play_audio)
         self.clear_button = Button(
-            self.canva, text='Clear', padx=30, command=self.clear_all)
+            self.canva, text='Limpar', padx=30, command=self.clear_all)
 
         self.list_audio = Listbox(selectmode=SINGLE, width=20)
         self.list_video = Listbox(selectmode=SINGLE, width=20)
 
+        
         self.list_video.grid(column=2, row=0, columnspan=2)
         self.list_audio.grid(column=3, row=0, columnspan=2)
         self.send_button.grid(column=2, row=2)
         self.clear_button.grid(column=3, row=2)
+        self.add_file.grid(column=4, row=2)
         self.video_button.grid(column=5, row=2)
         self.audio_button.grid(column=6, row=2)
         self.text_area.grid(column=0, row=0)
@@ -86,6 +90,8 @@ class GUI:
     def play_audio(self):
         pass
 
+    def put_file(self):
+        pass
 
 if __name__ == '__main__':
     interface = GUI(800, 600).start()
