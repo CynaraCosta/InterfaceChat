@@ -10,7 +10,7 @@
   - [x] Data e hora de envio
   - [x] Nome do usuário que enviou a mensagem
 - [x] Não devem ser enviadas mensagens vazias ou em branco
-- [ ] Botão para limpar o chat
+- [x] Botão para limpar o chat
 - [ ] Botão para envio de anexo, em que será possível escolher arquivos do seu computador para as seguintes categorias:
   - [ ] Vídeo
   - [ ] Foto
