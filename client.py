@@ -14,19 +14,6 @@ class Client():
         firstMessage = True
         while True:
             received_message, received_adds = self.udp_socket.recvfrom(1024)
-            # self.received_message = received_message.decode("utf-8")
-
-            # if firstMessage:
-            #     self.get_sender_info(self.received_message)
-            #     firstMessage = False
-
-            # try:
-            #     self.receive_file(self.received_message)
-            #     self.gui.show_file(self.name_of_file)
-            # except:
-            #     self.gui.show_received(
-            #         self.received_message, self.senderName)
-            #     self.get_sender_info(self.received_message)
             try:
                 self.received_message = received_message.decode("utf-8")
 

@@ -12,8 +12,8 @@ class MiniaturePic:
         # file = all_files[type_of_file]
 
         fileName = name_of_file.split('/')[-1]
-        file = f"files_for_test/{fileName[1:]}"
-        image = Image.open(file)
+        file = f"files_for_test/{fileName}"
+        image = Image.open(file.replace('$', ''))
 
         miniature = image.resize(
             (100, (100 * image.height) // image.width), Image.ANTIALIAS)

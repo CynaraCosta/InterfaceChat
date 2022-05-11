@@ -95,11 +95,14 @@ class GUI:
 
         self.client.send(init)
         file = open(name_of_file, 'rb')
-        bool_ = True
-        while bool_:
-            bool_ = file.read(1024)
-            self.client.send(bool_)
+        data = True
+        while data:
+            data = file.read(1024)
+            self.client.send(data)
+
         file.close()
+
+        self.show_file(name_of_file)
 
     def put_file(self):
         name_of_file = filedialog.askopenfilename()
