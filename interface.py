@@ -1,9 +1,14 @@
+from fileinput import filename
 from http import client
 from time import time
 from tkinter import *
 from tkinter import filedialog
 from MessageHelper import MessageHelper
+from TypeFile import Extension
+from miniaturePic import MiniaturePic
 from client import Client
+import os
+import sys
 
 nickname = input("Escolha um nome de usuário: ")
 
@@ -29,6 +34,7 @@ class GUI:
 
     def createAssets(self):
         self.text_area = Text(self.canva, border=1, bg="#fadce6")
+        self.image = MiniaturePic(self.text_area)
 
         self.text_field = Entry(self.canva, width=80, border=1, bg='white')
 
@@ -45,6 +51,9 @@ class GUI:
 
         self.list_audio = Listbox(selectmode=SINGLE, width=20)
         self.list_video = Listbox(selectmode=SINGLE, width=20)
+        
+        self.list_audio_count = 0
+        self.list_video_count = 0
 
         
         self.list_video.grid(column=2, row=0, columnspan=2)
@@ -81,6 +90,56 @@ class GUI:
     def show_received(self, message, nickname):
         self.print_on_screen(MessageHelper.create_message(message, nickname))
 
+    def send_file(self, name_of_file):
+        changed_name = name_of_file.split('/')[-1]
+        init = f"{changed_name}:file"
+
+        self.client.send(init)
+        file = open(name_of_file, 'rb')
+        bool_ = True
+        while bool_:
+            bool_ = file.read(1024)
+            self.client.send(bool_)
+        file.close()
+
+    def put_file(self):
+        name_of_file = filedialog.askopenfilename()
+        exten = Extension().which_ext(name_of_file)
+
+        # add image pic 
+
+        if exten == 2:
+            self.list_audio.insert(self.list_audio_count, name_of_file)
+            self.list_audio_count += 1
+
+        if exten == 3:
+            self.list_video.insert(self.list_video_count, name_of_file)
+            self.list_video_count += 1
+
+        self.send_file(name_of_file)
+
+    def show_file(self, name_of_file):
+        type_of_exten = Extension().which_ext(name_of_file)
+        self.image.add_image(type_of_exten, name_of_file)
+
+        if type_of_exten == 2:
+            self.list_audio.insert(self.list_audio_count, name_of_file)
+            self.list_audio_count += 1
+
+        if type_of_exten == 3:
+            self.list_video.insert(self.list_video_count, name_of_file)
+            self.list_video_count += 1
+
+    def to_play_stuff(self, name_of_file):
+        os = sys.platform
+        if os in ['linux', 'linux2']:
+            name_of_file = name_of_file.replace(" ", "\ ")
+            return f'xdg-open {name_of_file}'
+        elif os in ['win32', 'win64']:
+            return f'"{name_of_file}"'
+        else:
+            return f'open {name_of_file}'
+
     def clear_all(self):
         self.text_area.delete('1.0', END)
 
@@ -88,9 +147,6 @@ class GUI:
         pass
 
     def play_audio(self):
-        pass
-
-    def put_file(self):
         pass
 
 if __name__ == '__main__':
