@@ -36,9 +36,9 @@ class GUI:
         self.send_button = Button(
             self.canva, text='Send', padx=30, command=self.send)
         self.video_button = Button(
-            self.canva, text='Play Video', padx=30, command=self.play_video)
+            self.canva, text='Enviar Video', padx=30, command=self.play_video)
         self.audio_button = Button(
-            self.canva, text='Play Audio', padx=30, command=self.play_audio)
+            self.canva, text='Enviar Audio', padx=30, command=self.play_audio)
         self.clear_button = Button(
             self.canva, text='Clear', padx=30, command=self.clear_all)
 
