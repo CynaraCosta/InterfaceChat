@@ -51,11 +51,10 @@ class GUI:
 
         self.list_audio = Listbox(selectmode=SINGLE, width=20)
         self.list_video = Listbox(selectmode=SINGLE, width=20)
-        
+
         self.list_audio_count = 0
         self.list_video_count = 0
 
-        
         self.list_video.grid(column=2, row=0, columnspan=2)
         self.list_audio.grid(column=3, row=0, columnspan=2)
         self.send_button.grid(column=2, row=2)
@@ -106,7 +105,7 @@ class GUI:
         name_of_file = filedialog.askopenfilename()
         exten = Extension().which_ext(name_of_file)
 
-        # add image pic 
+        # add image pic
 
         if exten == 2:
             self.list_audio.insert(self.list_audio_count, name_of_file)
@@ -148,6 +147,7 @@ class GUI:
 
     def play_audio(self):
         pass
+
 
 if __name__ == '__main__':
     interface = GUI(800, 600).start()
