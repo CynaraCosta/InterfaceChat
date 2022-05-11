@@ -74,11 +74,8 @@ class GUI:
         else:
             self.print_on_screen(MessageHelper.INVALID_MESSAGE)
 
-    def receive_and_show(self, message):
-        should_print = MessageHelper.is_valid_to_print(message)
-        if should_print:
-            self.text_area.insert(END, f'Fulano: {message}')
-            self.text_field.delete(0, END)
+    def show_received(self, message):
+        self.print_on_screen(MessageHelper.create_message(message, 'Fulano'))
 
     def clear_all(self):
         self.text_area.delete('1.0', END)

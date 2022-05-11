@@ -4,23 +4,22 @@ import socket
 
 class Client():
     def __init__(self, gui):
+        self.gui = gui
+
         self.udp_socket = socket.socket(
             family=socket.AF_INET, type=socket.SOCK_DGRAM)
-        
-        self.gui = gui
 
     def receive(self):
         while True:
             received_message, received_adds = self.udp_socket.recvfrom(1024)
             received_message = received_message.decode("utf-8")
-            print(f"Received ---> {received_message}")
-            try:
-                x = 0
-            except:
-                self.gui.receive_and_show(received_message)
-                self.informations(received_message)
 
-    # to-do: get the other user's data to pass as argument in line 19
+            self.gui.show_received(received_message)
+
+            data_about_sender = received_message.strip()
+            if data_about_sender[0] == "(":
+                self.info = eval(data_about_sender)
+
     def send(self, *message):
         if len(message) > 0:
             if isinstance(message[0], str):
@@ -37,9 +36,3 @@ class Client():
 
         sender.start()
         receiver.start()
-
-    def informations(self, *info):
-        info = info[0].strip()
-        if info[0] == "(":
-            info = eval(info)
-            self.info = info
