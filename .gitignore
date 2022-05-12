@@ -1,2 +1,4 @@
 __pycache__/
-binariesFiles/*
+binariesFiles/*.jpeg
+binariesFiles/*.png
+binariesFiles/*.jpg
