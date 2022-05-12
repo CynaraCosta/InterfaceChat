@@ -122,34 +122,28 @@ class GUI:
 
     def show_file(self, name_of_file):
         type_of_exten = Extension().which_ext(name_of_file)
-        self.image.add_image(type_of_exten, name_of_file)
+        
+        if type_of_exten == 0:
+            self.image.add_image(type_of_exten, name_of_file)
 
-        if type_of_exten == 2:
+        if type_of_exten == 1:
             self.list_audio.insert(self.list_audio_count, name_of_file)
             self.list_audio_count += 1
 
-        if type_of_exten == 3:
+        if type_of_exten == 2:
             self.list_video.insert(self.list_video_count, name_of_file)
             self.list_video_count += 1
-
-    def to_play_stuff(self, name_of_file):
-        os = sys.platform
-        if os in ['linux', 'linux2']:
-            name_of_file = name_of_file.replace(" ", "\ ")
-            return f'xdg-open {name_of_file}'
-        elif os in ['win32', 'win64']:
-            return f'"{name_of_file}"'
-        else:
-            return f'open {name_of_file}'
 
     def clear_all(self):
         self.text_area.delete('1.0', END)
 
     def play_video(self):
-        pass
+        video = self.list_video.get(self.list_video.curselection())
+        os.system(video)
 
     def play_audio(self):
-        pass
+        audio = self.list_audio.get(self.list_audio.curselection())
+        os.system(audio)
 
 
 if __name__ == '__main__':
