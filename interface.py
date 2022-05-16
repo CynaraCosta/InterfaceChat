@@ -1,14 +1,10 @@
-from fileinput import filename
-from http import client
-from time import time
 from tkinter import *
 from tkinter import filedialog
-from MessageHelper import MessageHelper
-from TypeFile import Extension
-from miniaturePic import MiniaturePic
+from helpers.MessageHelper import MessageHelper
+from helpers.Extensions import Extension
+from helpers.miniaturePic import MiniaturePic
 from client import Client
 import os
-import sys
 
 nickname = input("Escolha um nome de usuário: ")
 
@@ -122,7 +118,7 @@ class GUI:
 
     def show_file(self, name_of_file):
         type_of_exten = Extension().which_ext(name_of_file)
-        
+
         if type_of_exten == 0:
             self.image.add_image(type_of_exten, name_of_file)
 

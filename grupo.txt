@@ -1,0 +1,7 @@
+Grupo:
+- Cynara Costa (cvocac)
+- Davi Monteiro Paiva (dmp)
+- Gustavo Carvalho Campos (gcc2)
+- Marco Araujo (masca)
+- Pedro Queiroz (pccql)
+- Victor Luiz de Paula Lima (vlpl)
